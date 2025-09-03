@@ -2,88 +2,77 @@ package com.example.belajar;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.ScrollView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.button.MaterialButton;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button tab1, tab2, tab3;
-    private LinearLayout homeTab, profileTab, settingsTab;
+    MaterialButton tab1, tab2, tab3;
+    LinearLayout homeTab;
+    ScrollView profileTab, settingsTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize buttons
+        // Inisialisasi tombol
         tab1 = findViewById(R.id.tab1);
         tab2 = findViewById(R.id.tab2);
         tab3 = findViewById(R.id.tab3);
 
-        // Initialize tab content areas
+        // Inisialisasi konten
         homeTab = findViewById(R.id.home_tab);
         profileTab = findViewById(R.id.profile_tab);
         settingsTab = findViewById(R.id.settings_tab);
 
-        // Set initial active tab
-        setActiveTab(tab1, homeTab);
+        // Default tab aktif
+        showTab(1);
 
-        // Set click listeners for tabs
-        tab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setActiveTab(tab1, homeTab);
-            }
-        });
-
-        tab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setActiveTab(tab2, profileTab);
-            }
-        });
-
-        tab3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setActiveTab(tab3, settingsTab);
-            }
-        });
+        // Event listener
+        tab1.setOnClickListener(v -> showTab(1));
+        tab2.setOnClickListener(v -> showTab(2));
+        tab3.setOnClickListener(v -> showTab(3));
     }
 
-    private void setActiveTab(Button activeButton, LinearLayout activeTab) {
-        // Reset all buttons
-        resetAllTabs();
-
-        // Set active button style
-        activeButton.setTextColor(getResources().getColor(android.R.color.white));
-        activeButton.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.holo_blue_dark));
-
-        // Hide all tabs
+    private void showTab(int tabNumber) {
+        // Sembunyikan semua
         homeTab.setVisibility(View.GONE);
         profileTab.setVisibility(View.GONE);
         settingsTab.setVisibility(View.GONE);
 
-        // Show active tab
-        activeTab.setVisibility(View.VISIBLE);
+        // Reset warna semua tab
+        resetTabColors();
+
+        if (tabNumber == 1) {
+            homeTab.setVisibility(View.VISIBLE);
+            activateTab(tab1);
+        } else if (tabNumber == 2) {
+            profileTab.setVisibility(View.VISIBLE);
+            activateTab(tab2);
+        } else if (tabNumber == 3) {
+            settingsTab.setVisibility(View.VISIBLE);
+            activateTab(tab3);
+        }
     }
 
-    private void resetAllTabs() {
-        // Reset all button styles
-        tab1.setTextColor(getResources().getColor(android.R.color.black));
-        tab2.setTextColor(getResources().getColor(android.R.color.black));
-        tab3.setTextColor(getResources().getColor(android.R.color.black));
-
+    private void resetTabColors() {
         tab1.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.white));
         tab2.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.white));
         tab3.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.white));
+
+        tab1.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+        tab2.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+        tab3.setTextColor(ContextCompat.getColor(this, android.R.color.black));
     }
 
-    // Handle button click in home tab
-    public void onHomeButtonClick(View view) {
-        Toast.makeText(this, "Home button clicked!", Toast.LENGTH_SHORT).show();
+    private void activateTab(MaterialButton tab) {
+        tab.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.holo_blue_dark));
+        tab.setTextColor(ContextCompat.getColor(this, android.R.color.white));
     }
 }

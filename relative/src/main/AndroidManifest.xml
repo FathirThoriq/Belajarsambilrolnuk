@@ -15,7 +15,7 @@
 
         <!-- Activity utama aplikasi -->
         <activity
-            android:name=".mainactivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label=""
             android:theme="@style/Theme.Belajar">
