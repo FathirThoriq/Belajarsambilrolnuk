@@ -1,14 +1,17 @@
 package com.example.relative;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     // Deklarasi TextView
     private TextView namaTextView, nimTextView, prodiTextView, jurusanTextView;
-    private TextView jadwalSeninTextView, jadwalSelasaTextView, infoDetailTextView;
+    private Button btnInfo; // Tambahkan Button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +23,18 @@ public class MainActivity extends AppCompatActivity {
         nimTextView = findViewById(R.id.nim);
         prodiTextView = findViewById(R.id.prodi);
         jurusanTextView = findViewById(R.id.jurusan);
-        jadwalSeninTextView = findViewById(R.id.jadwal_senin);
-        jadwalSelasaTextView = findViewById(R.id.jadwal_selasa);
-        infoDetailTextView = findViewById(R.id.info_detail);
 
-        // Set data ke TextView
+        // Inisialisasi Button
+        btnInfo = findViewById(R.id.btnInfo);
+
+        // Set data identitas
         setUserData();
+
+        // Aksi saat button ditekan
+        btnInfo.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void setUserData() {
@@ -34,17 +43,5 @@ public class MainActivity extends AppCompatActivity {
         nimTextView.setText("NIM : E41240985");
         prodiTextView.setText("Prodi : Teknik Informatika");
         jurusanTextView.setText("Jurusan : Teknologi Informasi");
-
-        // Jadwal
-        jadwalSeninTextView.setText("Senin:\n08:00 - Pemrograman Mobile\n10:00 - Basis Data");
-        jadwalSelasaTextView.setText("Selasa:\n08:00 - Algoritma Pemrograman\n10:00 - Jaringan Komputer");
-
-        // Info mata kuliah
-        infoDetailTextView.setText(
-                "Mata Kuliah: Pemrograman Mobile\n" +
-                        "Dosen: Prawidya Destarianto\n" +
-                        "📌 Membahas pembuatan aplikasi Android dengan Java/Kotlin.\n" +
-                        "👉 Capaian: Mahasiswa mampu membangun aplikasi mobile sederhana."
-        );
     }
 }

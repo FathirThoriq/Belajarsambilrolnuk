@@ -21,32 +21,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inisialisasi tombol
+
         tab1 = findViewById(R.id.tab1);
         tab2 = findViewById(R.id.tab2);
         tab3 = findViewById(R.id.tab3);
 
-        // Inisialisasi konten
+
         homeTab = findViewById(R.id.home_tab);
         profileTab = findViewById(R.id.profile_tab);
         settingsTab = findViewById(R.id.settings_tab);
 
-        // Default tab aktif
+
         showTab(1);
 
-        // Event listener
+
         tab1.setOnClickListener(v -> showTab(1));
         tab2.setOnClickListener(v -> showTab(2));
         tab3.setOnClickListener(v -> showTab(3));
     }
 
     private void showTab(int tabNumber) {
-        // Sembunyikan semua
+
         homeTab.setVisibility(View.GONE);
         profileTab.setVisibility(View.GONE);
         settingsTab.setVisibility(View.GONE);
 
-        // Reset warna semua tab
+
         resetTabColors();
 
         if (tabNumber == 1) {
